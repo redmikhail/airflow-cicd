@@ -23,10 +23,10 @@ jobs:
           
           # Configure MinIO client with access credentials
           # ./mc alias set myminio https://minio-os-climate.apps.osc-cl4.apps.os-climate.org ZpYMFlV1xKrhRvcv91X5 6sHalXxACYQatOrf87gjIwv01r9iFY6JwQUCNJts
-          ./mc alias set myminio https://minio-os-climate.apps.osc-cl4.apps.os-climate.org ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} --insecure
+          ./mc alias set osclimate https://minio-os-climate.apps.osc-cl4.apps.os-climate.org ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} --insecure
           
           # Copy files to MinIO bucket
-          ./mc cp -r ./dags myminio/airflow/release/dags
+          ./mc cp -r ./dags osclimate/airflow/release/dags
 
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1

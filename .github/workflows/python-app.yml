@@ -15,18 +15,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: https://minio-os-climate.apps.osc-cl4.apps.os-climate.org
+      - name: Deploy to MinIO Bucket
+        run: |
+          # Set up MinIO client (mc)
+          wget https://dl.min.io/client/mc/release/linux-amd64/mc
+          chmod +x mc
+          
+          # Configure MinIO client with access credentials
+          ./mc alias set myminio https://minio-os-climate.apps.osc-cl4.apps.os-climate.org ZpYMFlV1xKrhRvcv91X5 6sHalXxACYQatOrf87gjIwv01r9iFY6JwQUCNJts
+          
+          # Copy files to MinIO bucket
+          ./mc cp -r ./dags airflow/release/dags
 
-      - name: Deploy to S3
-        uses: aws-actions/amazon-s3-deploy@v0.1.1
-        with:
-          args: --acl public-read --follow-symlinks --delete
-          bucket-name: airflow
-          local-dir: dags
-          include: '*.py, *.ipynb'
-          exclude: '*.tmp, config.yml'
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: https://minio-os-climate.apps.osc-cl4.apps.os-climate.org
+
+      # - name: Deploy to S3
+      #   uses: aws-actions/amazon-s3-deploy@v0.1.1
+      #   with:
+      #     args: --acl public-read --follow-symlinks --delete
+      #     bucket-name: airflow
+      #     local-dir: dags
+      #     include: '*.py, *.ipynb'
+      #     exclude: '*.tmp, config.yml'

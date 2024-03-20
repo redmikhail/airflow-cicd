@@ -25,7 +25,7 @@ jobs:
           ./mc alias set myminio https://minio-os-climate.apps.osc-cl4.apps.os-climate.org ZpYMFlV1xKrhRvcv91X5 6sHalXxACYQatOrf87gjIwv01r9iFY6JwQUCNJts
           
           # Copy files to MinIO bucket
-          ./mc cp -r ./dags airflow/release/dags
+          ./mc cp -r ./dags myminio/airflow/release/dags
 
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1

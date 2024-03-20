@@ -15,31 +15,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Deploy to MinIO Bucket
-      #   run: |
-      #     # Set up MinIO client (mc)
-      #     wget https://dl.min.io/client/mc/release/linux-amd64/mc
-      #     chmod +x mc
+      - name: Deploy to MinIO Bucket
+        run: |
+          # Set up MinIO client (mc)
+          wget https://dl.min.io/client/mc/release/linux-amd64/mc
+          chmod +x mc
           
-      #     # Configure MinIO client with access credentials
-      #     # ./mc alias set myminio https://minio-os-climate.apps.osc-cl4.apps.os-climate.org ZpYMFlV1xKrhRvcv91X5 6sHalXxACYQatOrf87gjIwv01r9iFY6JwQUCNJts
-      #     ./mc alias set myminio https://minio-os-climate.apps.osc-cl4.apps.os-climate.org minioAdmin minio1234 --insecure
+          # Configure MinIO client with access credentials
+          # ./mc alias set myminio https://minio-os-climate.apps.osc-cl4.apps.os-climate.org ZpYMFlV1xKrhRvcv91X5 6sHalXxACYQatOrf87gjIwv01r9iFY6JwQUCNJts
+          ./mc alias set myminio https://minio-os-climate.apps.osc-cl4.apps.os-climate.org ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} --insecure
           
-      #     # Copy files to MinIO bucket
-      #     ./mc cp -r ./dags myminio/airflow/release/dags
+          # Copy files to MinIO bucket
+          ./mc cp -r ./dags myminio/airflow/release/dags
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: https://minio-os-climate.apps.osc-cl4.apps.os-climate.org
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: https://minio-os-climate.apps.osc-cl4.apps.os-climate.org
 
-      - name: Deploy to S3
-        uses: aws-actions/amazon-s3-deploy@v0.1.1
-        with:
-          args: --acl public-read --follow-symlinks --delete
-          bucket-name: airflow/release/dags
-          local-dir: dags
-          include: '*.py, *.ipynb'
-          exclude: '*.tmp, config.yml'
+      # - name: Deploy to S3
+      #   uses: aws-actions/amazon-s3-deploy@v0.1.1
+      #   with:
+      #     args: --acl public-read --follow-symlinks --delete
+      #     bucket-name: airflow/release/dags
+      #     local-dir: dags
+      #     include: '*.py, *.ipynb'
+      #     exclude: '*.tmp, config.yml'

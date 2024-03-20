@@ -39,7 +39,7 @@ jobs:
         uses: aws-actions/amazon-s3-deploy@v0.1.1
         with:
           args: --acl public-read --follow-symlinks --delete
-          bucket-name: airflow
+          bucket-name: airflow/release/dags
           local-dir: dags
           include: '*.py, *.ipynb'
           exclude: '*.tmp, config.yml'

@@ -24,7 +24,7 @@ jobs:
           chmod +x mc
           
           # Configure MinIO client with access credentials
-          ./mc alias set osclimate https://minio-datamesh-demo1.apps.osc-cl4.apps.os-climate.org ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} --insecure --api S3v4
+          ./mc alias set osclimate http://minio-datamesh-demo1.apps.osc-cl4.apps.os-climate.org ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} --insecure --api S3v4
           
           # ./mc --insecure mb osclimate/airflow/release/dags 
 

@@ -28,6 +28,7 @@ jobs:
           
           ./mc --insecure mb airflow/release/dags 
 
+          ./mc --insecure ls
           # Copy files to MinIO bucket
           ./mc  --insecure cp -r ./dags/ osclimate/airflow/release/dags 
       # - name: Configure AWS credentials

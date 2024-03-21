@@ -29,6 +29,8 @@ jobs:
           # ./mc --insecure mb osclimate/airflow/release/dags 
 
           # ./mc --insecure --recursive ls osclimate/airflow
+          ./mc admin info osclimate
+
 
           # Copy files to MinIO bucket
           ./mc  --insecure cp -r ./dags/ osclimate/airflow 

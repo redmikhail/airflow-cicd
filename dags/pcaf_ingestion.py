@@ -7,7 +7,7 @@ import os.path
 import urllib.request
 
 with DAG(
-    "unfccc_ingestion", start_date=pendulum.datetime(2024, 11, 16, tz="UTC"),
+    "unfccc_ingestion", start_date=pendulum.datetime(2024, 11, 18, tz="UTC"),
     schedule_interval="@daily", catchup=False
 ) as dag:
 

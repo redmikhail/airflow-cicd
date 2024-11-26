@@ -27,8 +27,10 @@ jobs:
           ./mc alias set oscicd ${{secrets.S3_URL}} ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} --insecure --api S3v4
           
           # Copy files to MinIO bucket
-          ./mc mirror ./dags/ oscicd/airflow/release/dags --insecure 
-          ./mc mirror ./dags/ oscicd/airflow/dags --insecure 
+          # ./mc mirror ./dags/ oscicd/airflow/release/dags --insecure 
+          ./mc mirror --remove --overwrite ./dags/ oscicd/airflow/release/dags --insecure
+          ./mc mirror --remove --overwrite ./dags/ oscicd/airflow/dags --insecure
+          # ./mc mirror ./dags/ oscicd/airflow/dags --insecure 
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
       #   with:
